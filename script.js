@@ -1,4 +1,4 @@
-import {updateGround} from './ground'
+import { updateGround, setGround } from './ground.js'
 
 const WORLD_WIDTH = 100
 const WORLD_HEIGHT = 30
@@ -7,6 +7,8 @@ const worldElem = document.querySelector("[data-world]");
 
 setPixelWorldScale()
 window.addEventListener("resize", setPixelWorldScale) 
+
+setGround()
 
 let lastTime
 function update (time) {
