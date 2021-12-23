@@ -58,3 +58,11 @@ function handleRun(delta, velScale) {
     currentFrameTime += delta * velScale
 }
 
+export function getDinoRect() {
+    return dinoElem.getBoundingClientRect()
+    
+}
+
+export function setDinoLose() {
+    dinoElem.src = "imgs/dino-lose.png"
+}
