@@ -1,4 +1,6 @@
 import { updateGround, setGround } from './ground.js'
+import { updateDino, setDino } from './dino.js'
+import { updateCacto, setCacto } from './cacto.js'
 
 const WORLD_WIDTH = 100
 const WORLD_HEIGHT = 30
@@ -24,8 +26,10 @@ function update (time) {
     const delta = time - lastTime
 
     updateGround(delta, velScale)
+    updateDino(delta, velScale)
     updateVelScale(delta)
     updatePontosScale(delta, pontos)
+    updateCacto(delta, velScale)
 
     lastTime = time
     window.requestAnimationFrame(update)
@@ -45,6 +49,8 @@ function iniciar() {
     velScale = 1
     pontos = 0
     setGround()
+    setDino()
+    setCacto()
     startElem.classList.add("hide")
     window.requestAnimationFrame(update)
 }
