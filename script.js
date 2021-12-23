@@ -2,15 +2,19 @@ import { updateGround, setGround } from './ground.js'
 
 const WORLD_WIDTH = 100
 const WORLD_HEIGHT = 30
+const SPEED_SCALE_INCREASE = 0.00001
 
 const worldElem = document.querySelector("[data-world]");
+const pontosElem = document.querySelector("[data-pontos]");
+const startElem = document.querySelector("[data-start]");
 
 setPixelWorldScale()
-window.addEventListener("resize", setPixelWorldScale) 
-
-setGround()
+window.addEventListener("resize", setPixelWorldScale)
+document.addEventListener("keydown", iniciar, { once: true}) 
 
 let lastTime
+let velScale
+let pontos
 function update (time) {
     if (lastTime == null) {
         lastTime = time
@@ -19,12 +23,31 @@ function update (time) {
     }
     const delta = time - lastTime
 
-    updateGround(delta)
+    updateGround(delta, velScale)
+    updateVelScale(delta)
+    updatePontosScale(delta, pontos)
 
     lastTime = time
     window.requestAnimationFrame(update)
 }
-window.requestAnimationFrame(update)
+
+function updateVelScale(delta) {
+    velScale += delta * SPEED_SCALE_INCREASE
+}
+
+function updatePontosScale(delta){
+    pontos += delta * .01
+    pontosElem.textContent = Math.floor(pontos)
+}
+
+function iniciar() {
+    lastTime = null
+    velScale = 1
+    pontos = 0
+    setGround()
+    startElem.classList.add("hide")
+    window.requestAnimationFrame(update)
+}
 
 function setPixelWorldScale() {
     let worldPixelScale
